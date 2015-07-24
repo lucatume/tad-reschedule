@@ -1,0 +1,17 @@
+{
+    "name": "lucatume/tad-reschedule",
+    "description": "Easy cron event rescheduling in WordPress",
+    "type": "wordpress-plugin",
+    "require-dev": {
+        "lucatume/wp-browser": "dev-master"
+    },
+    "license": "GPL 2.0",
+    "authors": [
+        {
+            "name": "Luca Tumedei",
+            "email": "luca@theaveragedev.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
