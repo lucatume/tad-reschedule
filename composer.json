@@ -3,7 +3,8 @@
     "description": "Easy cron event rescheduling in WordPress",
     "type": "wordpress-plugin",
     "require-dev": {
-        "lucatume/wp-browser": "dev-master"
+        "lucatume/wp-browser": "dev-master",
+        "lucatume/function-mocker": "dev-master"
     },
     "license": "GPL 2.0",
     "authors": [

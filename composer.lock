@@ -4,9 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d8adb9b484898ed20cf3380672f354d0",
+    "hash": "981895c6535cb1196e7eb1c82189da5e",
     "packages": [],
     "packages-dev": [
+        {
+            "name": "antecedent/patchwork",
+            "version": "1.3.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/antecedent/patchwork.git",
+                "reference": "1a6197903bdc1d0d8b4c5218a9a0b60ed8ddc385"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/1a6197903bdc1d0d8b4c5218a9a0b60ed8ddc385",
+                "reference": "1a6197903bdc1d0d8b4c5218a9a0b60ed8ddc385",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignas Rudaitis",
+                    "email": "ignas.rudaitis@gmail.com"
+                }
+            ],
+            "description": "A pure PHP library that lets you redefine user-defined functions at runtime.",
+            "homepage": "http://antecedent.github.io/patchwork/",
+            "keywords": [
+                "aop",
+                "aspect",
+                "interception",
+                "monkeypatching",
+                "redefinition",
+                "runkit",
+                "testing"
+            ],
+            "time": "2015-03-19 04:34:34"
+        },
         {
             "name": "bacon/bacon-string-utils",
             "version": "dev-master",
@@ -113,7 +154,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/f18877ac54c71d565c9b5e70c851223e0c2d0f8d",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/9b0ad91d11356764e8ebf2b5d87272707b4a67f2",
                 "reference": "f18877ac54c71d565c9b5e70c851223e0c2d0f8d",
                 "shasum": ""
             },
@@ -452,6 +493,87 @@
             "time": "2015-06-24 19:55:15"
         },
         {
+            "name": "lucatume/args",
+            "version": "0.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lucatume/args.git",
+                "reference": "98bf6845df82108d358e02c9750eb2f4d88f2af2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lucatume/args/zipball/98bf6845df82108d358e02c9750eb2f4d88f2af2",
+                "reference": "98bf6845df82108d358e02c9750eb2f4d88f2af2",
+                "shasum": ""
+            },
+            "require": {
+                "xrstf/composer-php52": "1.*"
+            },
+            "require-dev": {
+                "codeception/codeception": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Arg": "src/",
+                    "tad_": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL2"
+            ],
+            "authors": [
+                {
+                    "name": "Luca Tumedei",
+                    "email": "luca@theaveragedev.com"
+                }
+            ],
+            "description": "A PHP 5.2 compatible arguments handling library.",
+            "time": "2015-05-17 09:03:11"
+        },
+        {
+            "name": "lucatume/function-mocker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lucatume/function-mocker.git",
+                "reference": "4fc093e5d10719235f5a1263b1184aa093f8497c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lucatume/function-mocker/zipball/4fc093e5d10719235f5a1263b1184aa093f8497c",
+                "reference": "4fc093e5d10719235f5a1263b1184aa093f8497c",
+                "shasum": ""
+            },
+            "require": {
+                "antecedent/patchwork": "~1.3",
+                "lucatume/args": "~0.1",
+                "phpunit/phpunit": "~4.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "tad\\FunctionMocker": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "theAverageDev",
+                    "email": "luca@theaveragedev.com"
+                }
+            ],
+            "description": "Function mocking with Patchwork",
+            "time": "2015-07-07 10:20:01"
+        },
+        {
             "name": "lucatume/wp-browser",
             "version": "dev-master",
             "source": {
@@ -461,7 +583,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/8883f9bd16b023800a898e18666aac3f97e4a832",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/89ade40065b0e224ac7e6910aa1bb7f3194cba6a",
                 "reference": "8883f9bd16b023800a898e18666aac3f97e4a832",
                 "shasum": ""
             },
@@ -627,7 +749,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/1ba1290e47c3275be779967de1516e2989b6e130",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/df29d420311aa94ed1eb26560b573710f3603b2d",
                 "reference": "1ba1290e47c3275be779967de1516e2989b6e130",
                 "shasum": ""
             },
@@ -1044,7 +1166,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/dee3fd1828677b2182c076ad2caecbb5c7bdbf1c",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/937efb279bd37a375bcadf584dec0726f84dbf22",
                 "reference": "dee3fd1828677b2182c076ad2caecbb5c7bdbf1c",
                 "shasum": ""
             },
@@ -1160,7 +1282,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/bc66c3bbe6e5822c34395049e110566491cafa3b",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/70c3ba9398826b0d0117c2e9f1922c3bc47644ce",
                 "reference": "bc66c3bbe6e5822c34395049e110566491cafa3b",
                 "shasum": ""
             },
@@ -1470,7 +1592,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/fd85e7517e79a2bceafcee8f7e8b7bbd0919a90a",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/575782770a015042d2fe34f1388d5073bde784bd",
                 "reference": "fd85e7517e79a2bceafcee8f7e8b7bbd0919a90a",
                 "shasum": ""
             },
@@ -1740,7 +1862,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/000e7fc2653335cd42c6d21405dac1c74224a387",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/b7bf092bc2b3af532ef916805e214febec89ae4b",
                 "reference": "000e7fc2653335cd42c6d21405dac1c74224a387",
                 "shasum": ""
             },
@@ -1778,12 +1900,45 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2015-07-01 14:16:54"
+        },
+        {
+            "name": "xrstf/composer-php52",
+            "version": "dev-default",
+            "source": {
+                "type": "hg",
+                "url": "https://bitbucket.org/xrstf/composer-php52",
+                "reference": "717c00a8bec1b40401384536d2ebaea57c7c35d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/xrstf/composer-php52/get/717c00a8bec1b40401384536d2ebaea57c7c35d4.zip",
+                "reference": "717c00a8bec1b40401384536d2ebaea57c7c35d4",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-default": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "xrstf\\Composer52": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "homepage": "http://www.xrstf.de/",
+            "time": "2015-02-01 14:29:12"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "lucatume/wp-browser": 20
+        "lucatume/wp-browser": 20,
+        "lucatume/function-mocker": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

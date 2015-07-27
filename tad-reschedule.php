@@ -14,10 +14,15 @@ if ( ! function_exists( 'tad_reschedule' ) ) {
 		if ( ! is_string( $hook ) ) {
 			throw new InvalidArgumentException( 'Hook name must be a string' );
 		}
+
+		return new tad_Reschedule();
 	}
 }
 
 
 class tad_Reschedule {
 
+	public function until($condition){
+		return $this;
+	}
 }
