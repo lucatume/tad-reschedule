@@ -12,7 +12,7 @@ Reschedule the `my_hook` hook each 10 minutes until `my_option` option is truthy
 or reschedule the `my_hook` hook but do not pass any argument to the called functions
 
     reschedule( 'my_hook' )
-        ->while( get_option('my_option', false) )
+        ->until( get_option('my_option', false) )
         ->each( 600 )
         ->with_no_args();
         
