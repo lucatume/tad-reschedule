@@ -115,7 +115,9 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 			[ [ 'Dummy', 'static_method' ], false ],
 			[ [ 'Dummy', 'not_a_static_method' ], false ], // will not be able to spot this!
 			[ [ new Dummy, 'instance_method' ], false ],
-			[ [ new Dummy, 'not_an_instance_method' ], false ] // will not be able to spot this!
+			[ [ new Dummy, 'not_an_instance_method' ], false ], // will not be able to spot this!
+			[ [ ], false ],
+			[ null, false ],
 		];
 	}
 

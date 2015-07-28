@@ -36,7 +36,7 @@ class tad_Reschedule {
 	}
 
 	public function with_args( $args ) {
-		if ( ! ( is_callable( $args ) || is_array( $args ) ) ) {
+		if ( ! ( is_callable( $args ) || is_array( $args ) || is_null( $args ) ) ) {
 			throw new \InvalidArgumentException( 'Arguments must be an array or a callable.' );
 		}
 
