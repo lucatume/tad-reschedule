@@ -2,6 +2,11 @@
 
 use tad\FunctionMocker\FunctionMocker as Test;
 
+function a_callback() {
+
+}
+
+
 class Dummy {
 
 	public static function static_method() {
@@ -12,6 +17,7 @@ class Dummy {
 
 	}
 }
+
 
 class tad_RescheduleTest extends \WP_UnitTestCase {
 
@@ -72,4 +78,57 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 		Test::assertInstanceOf( 'tad_Reschedule', $out );
 	}
 
+	public function intAndCallables() {
+		return [
+			[ 23, false ],
+			[ '23', false ],
+			[ 'foo', true ],
+			[ array(), true ],
+			[ new stdClass(), true ],
+			[ 'a_callback', false ],
+			[ array( 'Dummy', 'static_method' ), false ],
+			[ array( 'Dummy', 'not_a_real_static_method' ), true ],
+			[ array( new Dummy(), 'instance_method' ), false ],
+			[ array( new Dummy(), 'not_a_real_instance_method' ), true ],
+		];
+	}
+
+	/**
+	 * @test
+	 * it should only accept ints and callables in the each method
+	 * @dataProvider intAndCallables
+	 */
+	public function it_should_only_accept_ints_and_callables_in_the_each_method( $in, $should_throw ) {
+		if ( $should_throw ) {
+			$this->setExpectedException( 'InvalidArgumentException' );
+		}
+
+		$out = tad_reschedule( 'some_hook' )->each( $in );
+	}
+
+	public function withArgsArgs() {
+		return [
+			[ [ 'one', 'two', 'three' ], false ],
+			[ [ 'one' ], false ],
+			[ [ 23, 12 ], false ],
+			[ 'a_callback', false ],
+			[ [ 'Dummy', 'static_method' ], false ],
+			[ [ 'Dummy', 'not_a_static_method' ], false ], // will not be able to spot this!
+			[ [ new Dummy, 'instance_method' ], false ],
+			[ [ new Dummy, 'not_an_instance_method' ], false ] // will not be able to spot this!
+		];
+	}
+
+	/**
+	 * @test
+	 * it should accept an array of args or a callable in the with args method
+	 * @dataProvider withArgsArgs
+	 */
+	public function it_should_accept_an_array_of_args_or_a_callable_in_the_with_args_method( $in, $should_throw ) {
+		if ( $should_throw ) {
+			$this->setExpectedException( 'InvalidArgumentException' );
+		}
+
+		$out = tad_reschedule( 'some_hook' )->with_args( $in );
+	}
 }
