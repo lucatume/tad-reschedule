@@ -24,6 +24,11 @@ if ( ! function_exists( 'tad_reschedule' ) ) {
 
 class tad_Reschedule {
 
+	/**
+	 * WordPress will not allow a same action to be rescheduled with the same args with a time offset (in seconds)
+	 * smaller than this.
+	 */
+	const WP_MIN_SCHEDULE_SECOND_OFFSET = 600;
 
 	/**
 	 * @var string The name of the hook to reschedule
@@ -145,6 +150,7 @@ class tad_Reschedule {
 		$time_offset = is_callable( $this->each ) ? (int) call_user_func( $this->each ) : (int) $this->each;
 		$args        = is_callable( $this->args ) ? call_user_func( $this->args ) : $this->args;
 		$args        = is_array( $args ) ? $args : array( $args );
-		wp_schedule_single_event( time() + $time_offset, $this->hook, $args );
+		$current     = time() + $time_offset;
+		wp_schedule_single_event( $current, $this->hook, $args );
 	}
 }

@@ -48,6 +48,7 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 		// before
 		parent::setUp();
 		Test::setUp();
+		Test::replace( 'wp_next_scheduled', false );
 
 		// your set up methods here
 
