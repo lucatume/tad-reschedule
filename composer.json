@@ -1,18 +1,35 @@
 {
-    "name": "lucatume/tad-reschedule",
-    "description": "Easy cron event rescheduling in WordPress",
-    "type": "wordpress-plugin",
-    "require-dev": {
-        "lucatume/wp-browser": "dev-master",
-        "lucatume/function-mocker": "dev-master"
-    },
-    "license": "GPL 2.0",
-    "authors": [
-        {
-            "name": "Luca Tumedei",
-            "email": "luca@theaveragedev.com"
-        }
+  "name": "lucatume/tad-reschedule",
+  "description": "Easy cron event rescheduling in WordPress",
+  "type": "wordpress-plugin",
+  "require": {
+    "xrstf/composer-php52": "1.*"
+  },
+  "require-dev": {
+    "lucatume/wp-browser": "dev-master",
+    "lucatume/function-mocker": "dev-master"
+  },
+  "license": "GPL 2.0",
+  "authors": [
+    {
+      "name": "Luca Tumedei",
+      "email": "luca@theaveragedev.com"
+    }
+  ],
+  "scripts": {
+    "post-install-cmd": [
+      "xrstf\\Composer52\\Generator::onPostInstallCmd"
     ],
-    "minimum-stability": "dev",
-    "require": {}
+    "post-update-cmd": [
+      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+    ],
+    "post-autoload-dump": [
+      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+    ]
+  },
+  "autoload": {
+    "files": [
+      "tad-reschedule.php"
+    ]
+  }
 }
