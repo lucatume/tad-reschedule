@@ -90,7 +90,9 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 	public function callables() {
 		return array_map( function ( $val ) {
 			return [ $val ];
-		}, [ 'my_condition', [ 'Dummy', 'static_method' ], [ new Dummy(), 'instance_method' ] ] );
+		}, [
+			'my_condition', [ 'Dummy', 'static_method' ], [ new Dummy(), 'instance_method' ]
+		] );
 	}
 
 	/**
@@ -105,49 +107,32 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 
 	public function intAndCallables() {
 		return [
-			[ 23, false ],
-			[ '23', false ],
-			[ 'foo', true ],
-			[ array(), true ],
-			[ new stdClass(), true ],
-			[ 'a_callback', false ],
-			[
+			[ 23, false ], [ '23', false ], [ array(), true ], [ new stdClass(), true ], [ 'a_callback', false ], [
 				array(
-					'Dummy',
-					'static_method'
-				),
-				false
-			],
-			[
+					'Dummy', 'static_method'
+				), false
+			], [
 				array(
-					'Dummy',
-					'not_a_real_static_method'
-				),
-				true
-			],
-			[
+					'Dummy', 'not_a_real_static_method'
+				), true
+			], [
 				array(
-					new Dummy(),
-					'instance_method'
-				),
-				false
-			],
-			[
+					new Dummy(), 'instance_method'
+				), false
+			], [
 				array(
-					new Dummy(),
-					'not_a_real_instance_method'
-				),
-				true
-			],
+					new Dummy(), 'not_a_real_instance_method'
+				), true
+			], [ 'action_hook', false ]
 		];
 	}
 
 	/**
 	 * @test
-	 * it should only accept ints and callables in the each method
+	 * it should only accept strings, ints and callables in the each method
 	 * @dataProvider intAndCallables
 	 */
-	public function it_should_only_accept_ints_and_callables_in_the_each_method( $in, $should_throw ) {
+	public function it_should_only_accept_strings_ints_and_callables_in_the_each_method( $in, $should_throw ) {
 		if ( $should_throw ) {
 			$this->setExpectedException( 'InvalidArgumentException' );
 		}
@@ -157,18 +142,12 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 
 	public function withArgsArgs() {
 		return [
-			[ [ 'one', 'two', 'three' ], false ],
-			[ [ 'one' ], false ],
-			[ [ 23, 12 ], false ],
-			[ 'a_callback', false ],
-			[ [ 'Dummy', 'static_method' ], false ],
-			[ [ 'Dummy', 'not_a_static_method' ], false ],
+			[ [ 'one', 'two', 'three' ], false ], [ [ 'one' ], false ], [ [ 23, 12 ], false ], [ 'a_callback', false ],
+			[ [ 'Dummy', 'static_method' ], false ], [ [ 'Dummy', 'not_a_static_method' ], false ],
 			// will not be able to spot this!
-			[ [ new Dummy, 'instance_method' ], false ],
-			[ [ new Dummy, 'not_an_instance_method' ], false ],
+			[ [ new Dummy, 'instance_method' ], false ], [ [ new Dummy, 'not_an_instance_method' ], false ],
 			// will not be able to spot this!
-			[ [ ], false ],
-			[ null, false ],
+			[ [ ], false ], [ null, false ],
 		];
 	}
 
@@ -187,18 +166,11 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 
 	public function falsyUntilConditions() {
 		return [
-			[ false ],
-			[ 0 ],
-			[ '0' ],
-			[ null ],
-			[ 'falsy_callback' ],
-			[
+			[ false ], [ 0 ], [ '0' ], [ null ], [ 'falsy_callback' ], [
 				function () {
 					return false;
 				}
-			],
-			[ [ '\\Dummy', 'falsy_method' ] ],
-			[ [ new Dummy(), 'falsy_instance_method' ] ]
+			], [ [ '\\Dummy', 'falsy_method' ] ], [ [ new Dummy(), 'falsy_instance_method' ] ]
 		];
 	}
 
@@ -217,18 +189,11 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 
 	public function truthyUntilConditions() {
 		return [
-			[ true ],
-			[ 1 ],
-			[ '1' ],
-			[ 'foo' ],
-			[ 'truthy_callback' ],
-			[
+			[ true ], [ 1 ], [ '1' ], [ 'foo' ], [ 'truthy_callback' ], [
 				function () {
 					return true;
 				}
-			],
-			[ [ '\\Dummy', 'truthy_method' ] ],
-			[ [ new Dummy(), 'truthy_instance_method' ] ]
+			], [ [ '\\Dummy', 'truthy_method' ] ], [ [ new Dummy(), 'truthy_instance_method' ] ]
 		];
 	}
 
@@ -271,16 +236,14 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 		tad_reschedule( 'some_hook' )->until( true );
 
 		// delta 5s to allow for some test lag
-		$wp_schedule_single_event->wasCalledWithOnce( [ $this->isType( 'int' ), 'some_hook', [ ] ] );
+		$wp_schedule_single_event->wasCalledWithOnce( [
+			$this->isType( 'int' ), 'some_hook', [ ]
+		] );
 	}
 
 	public function args() {
 		return [
-			[ [ 'foo' ] ],
-			[ [ 1, 2, 3 ] ],
-			[ [ 23, 'foo' ] ],
-			[ [ ] ],
-			[ [ new stdClass() ] ],
+			[ [ 'foo' ] ], [ [ 1, 2, 3 ] ], [ [ 23, 'foo' ] ], [ [ ] ], [ [ new stdClass() ] ],
 		];
 	}
 
@@ -295,7 +258,9 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 		tad_reschedule( 'some_hook' )->until( true )->with_args( $args );
 
 		// delta 5s to allow for some test lag
-		$wp_schedule_single_event->wasCalledWithOnce( [ $this->isType( 'int' ), $this->isType( 'string' ), $args ] );
+		$wp_schedule_single_event->wasCalledWithOnce( [
+			$this->isType( 'int' ), $this->isType( 'string' ), $args
+		] );
 	}
 
 	/**
@@ -310,7 +275,9 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 		tad_reschedule( 'some_hook' )->until( true )->with_args( $callable );
 
 		// delta 5s to allow for some test lag
-		$wp_schedule_single_event->wasCalledWithOnce( [ $this->isType( 'int' ), $this->isType( 'string' ), [ 23 ] ] );
+		$wp_schedule_single_event->wasCalledWithOnce( [
+			$this->isType( 'int' ), $this->isType( 'string' ), [ 23 ]
+		] );
 	}
 
 	/**
@@ -320,7 +287,9 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 	public function it_should_not_call_the_until_condition_until_destruction() {
 		$method = Test::replace( 'Dummy::static_method', true );
 
-		$keep = tad_reschedule( 'some_hook' )->until( [ 'Dummy', 'static_method' ] );
+		$keep = tad_reschedule( 'some_hook' )->until( [
+			'Dummy', 'static_method'
+		] );
 
 		$method->wasNotCalled();
 
@@ -336,7 +305,9 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 	public function it_should_not_call_the_each_method_until_destruction() {
 		$method = Test::replace( 'Dummy::static_method', 1200 );
 
-		$keep = tad_reschedule( 'some_hook' )->until( true )->each( [ 'Dummy', 'static_method' ] );
+		$keep = tad_reschedule( 'some_hook' )->until( true )->each( [
+			'Dummy', 'static_method'
+		] );
 
 		$method->wasNotCalled();
 
@@ -352,7 +323,9 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 	public function it_should_not_call_the_args_method_until_destruction() {
 		$method = Test::replace( 'Dummy::static_method', 1200 );
 
-		$keep = tad_reschedule( 'some_hook' )->until( true )->each( 600 )->with_args( [ 'Dummy', 'static_method' ] );
+		$keep = tad_reschedule( 'some_hook' )->until( true )->each( 600 )->with_args( [
+			'Dummy', 'static_method'
+		] );
 
 		$method->wasNotCalled();
 
@@ -368,7 +341,9 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 	public function it_should_call_the_until_method_only_if_rescheduling() {
 		$method = Test::replace( 'Dummy::static_method', 1200 );
 
-		tad_reschedule( 'some_hook' )->until( false )->each( [ 'Dummy', 'static_method' ] );
+		tad_reschedule( 'some_hook' )->until( false )->each( [
+			'Dummy', 'static_method'
+		] );
 
 		$method->wasNotCalled();
 	}
@@ -380,8 +355,73 @@ class tad_RescheduleTest extends \WP_UnitTestCase {
 	public function it_should_call_the_args_method_only_if_rescheduling() {
 		$method = Test::replace( 'Dummy::static_method', 1200 );
 
-		tad_reschedule( 'some_hook' )->until( false )->with_args( [ 'Dummy', 'static_method' ] );
+		tad_reschedule( 'some_hook' )->until( false )->with_args( [
+			'Dummy', 'static_method'
+		] );
 
 		$method->wasNotCalled();
 	}
+
+	/**
+	 * @test
+	 * it should allow passing an action hook name as each arg
+	 */
+	public function it_should_allow_passing_an_action_hook_name_as_each_arg() {
+		$dummy = Test::replace( 'Dummy::static_method' );
+
+		tad_reschedule( [ 'Dummy', 'static_method' ] )->until( true )->each( 'action_hook' );
+
+		do_action( 'action_hook' );
+
+		$dummy->wasCalledOnce();
+	}
+
+	/**
+	 * @test
+	 * it should allow specifying the priority when rescheduling on an action
+	 */
+	public function it_should_allow_specifying_the_priority_when_rescheduling_on_an_action() {
+		$add_action = ( Test::replace( 'add_action' ) );
+
+		tad_reschedule( [ 'Dummy', 'static_method' ] )->until( true )->each( 'action_hook' )->priority( 15 );
+
+		$add_action->wasCalledWithOnce( [ 'action_hook', [ 'Dummy', 'static_method' ], 15, 1 ] );
+	}
+
+	/**
+	 * @test
+	 * it should allow specifying the number of args the function should be passed
+	 */
+	public function it_should_allow_specifying_the_number_of_args_the_function_should_be_passed() {
+		$add_action = ( Test::replace( 'add_action' ) );
+
+		tad_reschedule( [ 'Dummy', 'static_method' ] )->until( true )->each( 'action_hook' )->with_args( 3 );
+
+		$add_action->wasCalledWithOnce( [ 'action_hook', [ 'Dummy', 'static_method' ], 10, 3 ] );
+	}
+
+	/**
+	 * @test
+	 * it should honor the condition when scheduling on an hook
+	 */
+	public function it_should_honor_the_condition_when_scheduling_on_an_hook() {
+		$add_action = ( Test::replace( 'add_action' ) );
+
+		tad_reschedule( [ 'Dummy', 'static_method' ] )->until( false )->each( 'action_hook' );
+
+		$add_action->wasNotCalled();
+	}
+
+	/**
+	 * @test
+	 * it should schedule on shutdown hook if each arg not set in call
+	 */
+	public function it_should_schedule_on_shutdown_hook_if_each_arg_not_set_in_call() {
+		$add_action = ( Test::replace( 'add_action' ) );
+
+		tad_reschedule( [ 'Dummy', 'static_method' ] )->until( true );
+
+		$add_action->wasCalledWithOnce( [ 'shutdown', [ 'Dummy', 'static_method' ], 10, 1 ] );
+	}
 }
+
