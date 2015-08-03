@@ -13,9 +13,15 @@ or reschedule the `my_hook` hook but do not pass any argument to the called func
 
     tad_reschedule( 'my_hook' )
         ->until( get_option('my_option', false) )
-        ->each( 600 )
-        ->with_no_args();
+        ->each( 600 );
 
+The function allows for the same flexibility to be used to conditionally hook into actions:
+
+    tad_reschedule( 'my_callback' )
+        ->until( get_option('my_option', false) )
+        ->each( 'shutdown' )
+        ->priority( 99 );
+        
 ## Installation
 Download the zip file and copy the folder into the WordPress plugin folder.  
 
@@ -24,7 +30,7 @@ The plugin is meant to be pulled into a project using [Composer](https://getcomp
 
     composer require lucatume/tad-reschedule:~1.0
        
-## Usage
+## Cron Rescheduling usage
 Calling the function just with the hook name will be fine and will work as a shorthand for custom time rescheduling not requiring the registration of any cron schedule.
  
     tad_reschedule('my_hook')->each(519);
@@ -82,3 +88,29 @@ or
     }
     
     tad_reschedule('my_hook')->each('my_reschedule_args');
+    
+## Action Hooking usage
+The function chain will allow for conditional re-hooking into a set action, the methods are the same used to reschedule cron jobs but with different methods.
+An example usage:
+
+    tad_reschedule( array( 'Cache_Builder', 'build_post_cache' ) )
+        ->each( 'post_updated' )
+        ->until( !function_exists('super_cache_init') )
+        ->with_args( 3 )
+        ->priority( 999 );
+
+### Hook name
+In place of initiating the function chain using an action hook name the argument should be a callable.
+
+### until
+This method works exactly the same as for scheduled actions: if a "truthy" value or a callable returning a "truthy" value than the function will be hooked to the action.
+
+### each
+When using the function chain to re-hook a function to an action than this will be the action hook name; defaults to `shutdown`.
+
+### with_args
+When using the function chain to re-hook a function to an action than this will be the number of args the called function will be passed.
+
+### priority
+When using the function chain to re-hook a function to an action than this will be the priority the function will be given in the hook.
+
