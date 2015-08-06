@@ -3,6 +3,7 @@
   "description": "Easy cron event rescheduling in WordPress",
   "type": "wordpress-plugin",
   "require": {
+    "composer/installers": "~1.0",
     "xrstf/composer-php52": "1.*"
   },
   "require-dev": {
