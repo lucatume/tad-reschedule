@@ -11,13 +11,13 @@
 
 if ( ! function_exists( 'tad_reschedule' ) ) {
 	/**
-	 * @param string $hook The name of the action hook to reschedule.
+	 * @param string|callable $hook_or_callable The name of the action hook to reschedule.
 	 *
 	 * @return tad_Reschedule An instance of the underlying class to keep the chain going.
 	 *
 	 */
-	function tad_reschedule( $hook ) {
-		return tad_Reschedule::instance( $hook );
+	function tad_reschedule( $hook_or_callable ) {
+		return tad_Reschedule::instance( $hook_or_callable );
 	}
 }
 
@@ -62,18 +62,18 @@ if ( ! class_exists( 'tad_Reschedule' ) ) {
 		/**
 		 * Instances and returns the object.
 		 *
-		 * @param string|callable $hook The name of the action hook to reschedule or a callable to hook into the action.
+		 * @param string|callable $hook_or_callable The name of the action hook to reschedule or a callable to hook into the action.
 		 *
 		 * @return tad_Reschedule The instance of this class to keep the chain
 		 *                        going.
 		 */
-		public static function instance( $hook ) {
-			if ( ! is_string( $hook ) && ! is_callable( $hook ) ) {
+		public static function instance( $hook_or_callable ) {
+			if ( ! is_string( $hook_or_callable ) && ! is_callable( $hook_or_callable ) ) {
 				throw new InvalidArgumentException( 'Reschedule either an action hook or a callable.' );
 			}
 
 			$instance       = new self();
-			$instance->hook = $hook;
+			$instance->hook = $hook_or_callable;
 
 			return $instance;
 		}
@@ -94,7 +94,7 @@ if ( ! class_exists( 'tad_Reschedule' ) ) {
 		}
 
 		/**
-		 * @param int|callable|string $interval Either an int value representing the time
+		 * @param int|callable|string $interval_or_hook Either an int value representing the time
 		 *                                      offset in seconds or a callable returning
 		 *                                      and int; if rescheduling on an action then the action hook name (e.g.
 		 *                                      "shutdown").
@@ -102,12 +102,12 @@ if ( ! class_exists( 'tad_Reschedule' ) ) {
 		 * @return tad_Reschedule The instance of this class to keep the chain
 		 *                        going.
 		 */
-		public function each( $interval ) {
-			if ( ! ( is_string( $interval ) || is_callable( $interval ) || is_numeric( $interval ) ) ) {
+		public function each( $interval_or_hook ) {
+			if ( ! ( is_string( $interval_or_hook ) || is_callable( $interval_or_hook ) || is_numeric( $interval_or_hook ) ) ) {
 				throw new \InvalidArgumentException( 'Interval must be an action hook name, an int value or a callable.' );
 			}
 
-			$this->each = $interval;
+			$this->each = $interval_or_hook;
 
 			return $this;
 		}
@@ -115,7 +115,8 @@ if ( ! class_exists( 'tad_Reschedule' ) ) {
 		/**
 		 * @param array|callable|int $args Either an array of args that will be passed
 		 *                                 to the scheduled action or a callable
-		 *                                 returning an array of args; if scheduling an action a priority.
+		 *                                 returning an array of args; if scheduling an action the number of args that
+		 *                                 will be passed to the called function.
 		 *
 		 * @return tad_Reschedule The instance of this class to keep the chain
 		 *                        going.
