@@ -104,7 +104,7 @@ if ( ! class_exists( 'tad_Reschedule' ) ) {
 		 */
 		public function each( $interval_or_hook ) {
 			if ( ! ( is_string( $interval_or_hook ) || is_callable( $interval_or_hook ) || is_numeric( $interval_or_hook ) ) ) {
-				throw new \InvalidArgumentException( 'Interval must be an action hook name, an int value or a callable.' );
+				throw new InvalidArgumentException( 'Interval must be an action hook name, an int value or a callable.' );
 			}
 
 			$this->each = $interval_or_hook;
@@ -123,7 +123,7 @@ if ( ! class_exists( 'tad_Reschedule' ) ) {
 		 */
 		public function with_args( $args ) {
 			if ( ! ( is_int( $args ) || is_callable( $args ) || is_array( $args ) || is_null( $args ) ) ) {
-				throw new \InvalidArgumentException( 'Arguments must be an array, a callable or an int if scheduling on an hook.' );
+				throw new InvalidArgumentException( 'Arguments must be an array, a callable or an int if scheduling on an hook.' );
 			}
 			$this->args = $args;
 
