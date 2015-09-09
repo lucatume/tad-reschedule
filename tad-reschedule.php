@@ -95,9 +95,9 @@ if ( ! class_exists( 'tad_Reschedule' ) ) {
 
 		/**
 		 * @param int|callable|string $interval_or_hook Either an int value representing the time
-		 *                                      offset in seconds or a callable returning
-		 *                                      and int; if rescheduling on an action then the action hook name (e.g.
-		 *                                      "shutdown").
+		 *                                              offset in seconds or a callable returning
+		 *                                              and int; if rescheduling on an action then the action hook name (e.g.
+		 *                                              "shutdown").
 		 *
 		 * @return tad_Reschedule The instance of this class to keep the chain
 		 *                        going.
@@ -186,7 +186,7 @@ if ( ! class_exists( 'tad_Reschedule' ) ) {
 		private function schedule_event() {
 			$args    = $this->get_schedule_args();
 			$current = $this->get_schedule_timestamp();
-			wp_schedule_single_event( $current, $this->hook, $args );
+			wp_schedule_single_event( $current, $this->hook, array( $args ) );
 		}
 
 		/**
