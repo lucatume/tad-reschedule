@@ -300,7 +300,7 @@ class tad_RescheduleTest extends \WP_UnitTestCase
     {
         $wp_schedule_single_event = Test::replace('wp_schedule_single_event');
 
-        $time = $this->prophesize('tad_Time');
+        $time = $this->prophesize('tad_Reschedule_Time');
         $now = time();
         $time->get()->willReturn($now);
         tad_Reschedule::instance('some_hook', $time->reveal())->until(true);
@@ -334,7 +334,7 @@ class tad_RescheduleTest extends \WP_UnitTestCase
     {
         $wp_schedule_single_event = Test::replace('wp_schedule_single_event');
 
-        $time = $this->prophesize('tad_Time');
+        $time = $this->prophesize('tad_Reschedule_Time');
         $now = time();
         $time->get()->willReturn($now);
         tad_Reschedule::instance('some_hook', $time->reveal())->until(true)->with_args($args);
@@ -357,7 +357,7 @@ class tad_RescheduleTest extends \WP_UnitTestCase
         $callable = function () {
             return 23;
         };
-        $time = $this->prophesize('tad_Time');
+        $time = $this->prophesize('tad_Reschedule_Time');
         $now = time();
         $time->get()->willReturn($now);
         tad_Reschedule::instance('some_hook', $time->reveal())->until(true)->with_args($callable);
@@ -537,7 +537,7 @@ class tad_RescheduleTest extends \WP_UnitTestCase
     {
         $wp_schedule_single_event = Test::replace('wp_schedule_single_event');
 
-        $time = $this->prophesize('tad_Time');
+        $time = $this->prophesize('tad_Reschedule_Time');
         $now = time();
         $time->get()->willReturn($now);
         tad_Reschedule::instance('some_hook', $time->reveal())->each(30)->until(true);

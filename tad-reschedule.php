@@ -33,7 +33,7 @@ if (!class_exists('tad_Reschedule')) {
         const WP_MIN_SCHEDULE_SECOND_OFFSET = 600;
 
         /**
-         * @var tad_Time
+         * @var tad_Reschedule_Time
          */
         protected $time;
 
@@ -71,12 +71,12 @@ if (!class_exists('tad_Reschedule')) {
          *
          * @param string|callable $hook_or_callable The name of the action hook to reschedule or a callable to hook into the action.
          *
-         * @param tad_Time $time
+         * @param tad_Reschedule_Time $time
          *
          * @return tad_Reschedule The instance of this class to keep the chain
          *                        going.
          */
-        public static function instance($hook_or_callable, tad_Time $time = null)
+        public static function instance($hook_or_callable, tad_Reschedule_Time $time = null)
         {
             if (!is_string($hook_or_callable) && !is_callable($hook_or_callable)) {
                 throw new InvalidArgumentException('Reschedule either an action hook or a callable.');
@@ -84,7 +84,7 @@ if (!class_exists('tad_Reschedule')) {
 
             $instance = new self();
             $instance->hook = $hook_or_callable;
-            $instance->time = $time ? $time : new tad_Time();
+            $instance->time = $time ? $time : new tad_Reschedule_Time();
 
             return $instance;
         }
@@ -266,11 +266,12 @@ if (!class_exists('tad_Reschedule')) {
     }
 }
 
-
-class tad_Time
-{
-    public function get()
+if (!class_exists('tad_Reschedule_Time')) {
+    class tad_Reschedule_Time
     {
-        return time();
+        public function get()
+        {
+            return time();
+        }
     }
 }
