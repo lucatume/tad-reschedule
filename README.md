@@ -23,7 +23,11 @@ The function allows for the same flexibility to be used to conditionally hook in
         ->priority( 99 );
         
 ## Installation
-Download the zip file and copy the folder into the WordPress plugin folder.  
+Download the zip file and copy the folder into the WordPress plugin folder then run
+
+    composer install
+
+ in the plugin root folder.
 
 ### Composer installation
 The plugin is meant to be pulled into a project using [Composer](https://getcomposer.org/):
